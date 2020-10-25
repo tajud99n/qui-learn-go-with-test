@@ -1,6 +1,7 @@
 package main
 
 import (
+	"sort"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -29,6 +30,9 @@ func NewFileSystemPlayerStore(file *os.File) (*FileSystemPlayerStore, error) {
 }
 
 func (f *FileSystemPlayerStore) GetLeague() League {
+	sort.Slice(f.league, func(i, j int) bool {
+		return f.league[1].Wins > f.league[j].Wins
+	})
 	return f.league
 }
 
